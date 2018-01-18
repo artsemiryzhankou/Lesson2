@@ -10,6 +10,10 @@
 
 @interface GeneratedInfo ()
 
+@property (nonatomic, copy) NSString *greeting;
+@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic, copy) NSString *name;
+
 @end
 
 @implementation GeneratedInfo

@@ -43,7 +43,7 @@ typedef void (^СompletionBlock)(GeneratedInfo *info);
 
 - (void)generate:(void (^)(GeneratedInfo *))completion {
     GeneratedInfo *item = [[GeneratedInfo alloc] initWithGreeting:self.generateTitle subtitle:self.generateSubtitle name:self.generateName];
-    completion(item);
+    completion([item autorelease]);
 }
 
 - (NSString *) generateTitle{
