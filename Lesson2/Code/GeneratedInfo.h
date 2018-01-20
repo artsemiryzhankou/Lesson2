@@ -13,8 +13,8 @@
 @property (nonatomic, readonly) NSString *greeting;
 @property (nonatomic, readonly) NSString *subtitle;
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *fullName;
 
-- (NSString *)fullName;
 - (id)initWithGreeting:(NSString *)greeting subtitle:(NSString *)subtitle name:(NSString *)name;
 
 @end

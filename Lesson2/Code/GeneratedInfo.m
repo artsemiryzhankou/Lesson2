@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *greeting;
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *fullName;
 
 @end
 
@@ -24,12 +25,9 @@
         [self setGreeting:greeting];
         [self setSubtitle:subtitle];
         [self setName:name];
+        [self setFullName:[[NSString alloc] initWithFormat:@"%@ %@", self.subtitle, self.name]];
     }
     return self;
-}
-
-- (NSString *) fullName {
-    return [[[NSString alloc] initWithFormat:@"%@ %@", self.subtitle, self.name] autorelease];
 }
 
 - (void)dealloc
