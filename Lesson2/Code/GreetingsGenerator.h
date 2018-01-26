@@ -12,10 +12,6 @@
 @interface GreetingsGenerator : NSObject
 
 - (id)initWithCompletion:(void (^)(GeneratedInfo *))myCompletion;
-- (void) generate:(void (^)(GeneratedInfo *))myCompletion;
-
-- (NSString *) generateTitle;
-- (NSString *) generateSubtitle;
-- (NSString *) generateName;
+- (void)generate;
 
 @end

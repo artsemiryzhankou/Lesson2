@@ -10,7 +10,7 @@
 
 @implementation NSArray (GetRandom)
 - (NSUInteger) getRandom {
-    NSUInteger result = arc4random_uniform(self.count);
+    NSUInteger result = arc4random_uniform((uint32_t)self.count);
     return result;
 }
 @end

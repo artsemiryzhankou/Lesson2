@@ -15,6 +15,7 @@
 @property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UILabel *subtitleLabel;
 @property (nonatomic, retain) UIButton *generateButton;
+@property (nonatomic, retain) GreetingsGenerator *generator;
 
 @end
 
@@ -63,6 +64,14 @@
     self.generateButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.generateButton setTitle:@"Generate" forState:UIControlStateNormal];
     self.generateButton.backgroundColor = [UIColor greenColor];
+
+    __unsafe_unretained GreetingsViewController *weakSelf = self;
+    GreetingsGenerator *generator = [[GreetingsGenerator alloc] initWithCompletion:^(GeneratedInfo *info) {
+        weakSelf.titleLabel.text = info.greeting;
+        weakSelf.subtitleLabel.text = info.fullName;
+    }];
+    self.generator = generator;
+    [generator release];
 }
 
 - (void)cleanup {
@@ -71,17 +80,14 @@
 }
 
 - (void)generate {
-    [[[GreetingsGenerator alloc] init] generate: ^void (GeneratedInfo *info) {
-        self.titleLabel.text = info.greeting;
-        self.subtitleLabel.text = info.fullName;
-    }];
+    [self.generator generate];
 }
 
-- (void)dealloc
-{
-    [_titleLabel release];
-    [_subtitleLabel release];
-    [_generateButton release];
+- (void)dealloc {
+    self.titleLabel = nil;
+    self.subtitleLabel = nil;
+    self.generateButton = nil;
+    self.generator = nil;
     [super dealloc];
 }
 
