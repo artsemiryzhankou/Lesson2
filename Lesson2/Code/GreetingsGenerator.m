@@ -21,45 +21,36 @@ typedef void (^СompletionBlock)(GeneratedInfo *info);
 
 @implementation GreetingsGenerator
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        self.titles = @[@"Hello", @"Hi", @"Welcome", @"Wazzap"];
-        self.subtitles = @[@"Mister", @"Sir"];
-        self.names = @[@"Bob", @"Tom", @"Tony", @"Adam", @"Seed", @"Mohammad al Rashid"];
-    }
-    return self;
-}
-
 - (id)initWithCompletion:(void (^)(GeneratedInfo *))myCompletion  {
     self = [super init];
     if (self) {
         self.completion = myCompletion;
+        self.titles = @[@"Hello", @"Hi", @"Welcome", @"Wazzap"];
+        self.subtitles = @[@"Mister", @"Sir"];
+        self.names = @[@"Bob", @"Tom", @"Tony", @"Adam", @"Seed", @"Mohammad al Rashid"];
     }
     
     return self;
 }
 
-- (void)generate:(void (^)(GeneratedInfo *))completion {
+- (void)generate {
     GeneratedInfo *item = [[GeneratedInfo alloc] initWithGreeting:self.generateTitle subtitle:self.generateSubtitle name:self.generateName];
-    completion([item autorelease]);
+    self.completion([item autorelease]);
 }
 
-- (NSString *) generateTitle{
+- (NSString *)generateTitle {
     return self.titles[[self.titles getRandom]];
 }
 
-- (NSString *) generateSubtitle {
+- (NSString *)generateSubtitle {
     return self.subtitles[[self.subtitles getRandom]];
 }
 
-- (NSString *) generateName {
+- (NSString *)generateName {
     return self.names[[self.names getRandom]];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [_titles release];
     [_subtitles release];
     [_names release];
