@@ -14,36 +14,33 @@
 @property (nonatomic, copy) NSArray *titles;
 @property (nonatomic, copy) NSArray *subtitles;
 @property (nonatomic, copy) NSArray *names;
+
 typedef void (^СompletionBlock)(GeneratedInfo *info);
 @property (nonatomic, copy) СompletionBlock completion;
+
+- (NSString *) generateTitle;
+- (NSString *) generateSubtitle;
+- (NSString *) generateName;
 
 @end
 
 @implementation GreetingsGenerator
 
-- (id)init
-{
+- (id)initWithCompletion:(void (^)(GeneratedInfo *))myCompletion  {
     self = [super init];
     if (self) {
         self.titles = @[@"Hello", @"Hi", @"Welcome", @"Wazzap"];
         self.subtitles = @[@"Mister", @"Sir"];
         self.names = @[@"Bob", @"Tom", @"Tony", @"Adam", @"Seed", @"Mohammad al Rashid"];
-    }
-    return self;
-}
-
-- (id)initWithCompletion:(void (^)(GeneratedInfo *))myCompletion  {
-    self = [super init];
-    if (self) {
         self.completion = myCompletion;
     }
     
     return self;
 }
 
-- (void)generate:(void (^)(GeneratedInfo *))completion {
+- (void)generate {
     GeneratedInfo *item = [[GeneratedInfo alloc] initWithGreeting:self.generateTitle subtitle:self.generateSubtitle name:self.generateName];
-    completion([item autorelease]);
+    self.completion([item autorelease]);
 }
 
 - (NSString *) generateTitle{

@@ -15,6 +15,7 @@
 @property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UILabel *subtitleLabel;
 @property (nonatomic, retain) UIButton *generateButton;
+@property (nonatomic, strong) GreetingsGenerator *generator;
 
 @end
 
@@ -70,11 +71,15 @@
     self.subtitleLabel.text = nil;
 }
 
-- (void)generate {
-    [[[GreetingsGenerator alloc] init] generate: ^void (GeneratedInfo *info) {
+- (GreetingsGenerator *)generator {
+    return [[GreetingsGenerator alloc] initWithCompletion:^void (GeneratedInfo *info) {
         self.titleLabel.text = info.greeting;
         self.subtitleLabel.text = info.fullName;
     }];
+}
+
+- (void)generate {
+    self.generator.generate;
 }
 
 - (void)dealloc
@@ -82,6 +87,7 @@
     [_titleLabel release];
     [_subtitleLabel release];
     [_generateButton release];
+    [_generator release];
     [super dealloc];
 }
 
